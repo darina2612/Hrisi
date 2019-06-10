@@ -21,15 +21,18 @@ public:
 
     virtual bool Evaluate() const;
 
-    virtual void Print() const;
+    virtual void Print(bool printNames = false) const;
 
-    virtual bool isTautology() const;
-    virtual bool isContradiction() const;
-    virtual bool isContingency() const;
+    virtual bool IsTautology() const;
+    virtual bool IsContradiction() const;
+    virtual bool IsContingency() const;
 
 private:
     bool Evaluate(bool left, bool right) const;
     void PrintOperation() const;
+    bool IsSimpleTautology(const BooleanExpression* left, const BooleanExpression* right) const;
+    bool IsSimpleContradiction(const BooleanExpression* left, const BooleanExpression* right) const;
+    bool CheckOperation(const BooleanExpression* left, const BooleanExpression* right, BinaryOperationType op) const;
 
     BooleanExpression* leftExpr;
     BinaryOperationType operation;

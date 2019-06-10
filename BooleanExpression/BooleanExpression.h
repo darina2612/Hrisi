@@ -7,9 +7,9 @@ public:
 
     virtual bool Evaluate() const = 0;
 
-    virtual void Print() const = 0;
+    virtual void Print(bool printNames = false) const = 0;
 
-    virtual bool isTautology() const = 0;
-    virtual bool isContradiction() const = 0;
-    virtual bool isContingency() const = 0;
+    virtual bool IsTautology() const = 0;
+    virtual bool IsContradiction() const = 0;
+    virtual bool IsContingency() const = 0;
 };

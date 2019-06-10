@@ -1,6 +1,7 @@
 #include "UnaryBooleanOperation.h"
 
 #include <iostream>
+#include <BooleanVariable.h>
 
 UnaryBooleanOperation::UnaryBooleanOperation(UnaryOperationType op,
                                              BooleanExpression* expr) :
@@ -23,31 +24,53 @@ bool UnaryBooleanOperation::Evaluate() const
     return expression->Evaluate();
 }
 
-void UnaryBooleanOperation::Print() const
+void UnaryBooleanOperation::Print(bool printNames) const
 {
     PrintOperationSymbol();
-    expression->Print();
+    expression->Print(printNames);
 }
 
-bool UnaryBooleanOperation::isTautology() const
+bool UnaryBooleanOperation::IsTautology() const
 {
     if(operation == Not)
-        return !expression->isContradiction();
+    {
+        const BooleanVariable* var = dynamic_cast<const BooleanVariable*>(expression);
+        if(var != nullptr)
+            return false;
+
+        return !expression->IsContradiction();
+    }
 
     return false;
 }
 
-bool UnaryBooleanOperation::isContradiction() const
+bool UnaryBooleanOperation::IsContradiction() const
 {
     if(operation == Not)
-        return !expression->isTautology();
+    {
+        const BooleanVariable* var = dynamic_cast<const BooleanVariable*>(expression);
+        if(var != nullptr)
+            return false;
+
+        return !expression->IsTautology();
+    }
 
     return false;
 }
 
-bool UnaryBooleanOperation::isContingency() const
+bool UnaryBooleanOperation::IsContingency() const
 {
-    return !(expression->isTautology() || expression->isContradiction());
+    return !(expression->IsTautology() || expression->IsContradiction());
+}
+
+const BooleanExpression* UnaryBooleanOperation::GetParameterExpression() const
+{
+    return expression;
+}
+
+UnaryOperationType UnaryBooleanOperation::GetOperationType() const
+{
+    return operation;
 }
 
 void UnaryBooleanOperation::PrintOperationSymbol() const

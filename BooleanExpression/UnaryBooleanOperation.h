@@ -17,11 +17,14 @@ public:
 
     virtual bool Evaluate() const;
 
-    virtual void Print() const;
+    virtual void Print(bool printNames = false) const;
 
-    virtual bool isTautology() const;
-    virtual bool isContradiction() const;
-    virtual bool isContingency() const;
+    virtual bool IsTautology() const;
+    virtual bool IsContradiction() const;
+    virtual bool IsContingency() const;
+
+    const BooleanExpression* GetParameterExpression() const;
+    UnaryOperationType GetOperationType() const;
 
 private:
     void PrintOperationSymbol() const;

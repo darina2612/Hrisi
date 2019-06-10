@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-BooleanVariable::BooleanVariable(bool v) : value(v)
+BooleanVariable::BooleanVariable(bool v, char n) : value(v), name(n)
 {
 }
 
@@ -11,22 +11,37 @@ bool BooleanVariable::Evaluate() const
     return value;
 }
 
-void BooleanVariable::Print() const
+void BooleanVariable::Print(bool printNames) const
 {
-    std::cout << value;
+    if(!printNames)
+    {
+        std::cout << value;
+    }
+    else
+    {
+        if(name == '\0')
+            std::cout << "??";
+        else
+            std::cout << name;
+    }
 }
 
-bool BooleanVariable::isTautology() const
+bool BooleanVariable::IsTautology() const
 {
     return false;
 }
 
-bool BooleanVariable::isContradiction() const
+bool BooleanVariable::IsContradiction() const
 {
     return false;
 }
 
-bool BooleanVariable::isContingency() const
+bool BooleanVariable::IsContingency() const
 {
     return true;
+}
+
+char BooleanVariable::GetName() const
+{
+    return name;
 }
